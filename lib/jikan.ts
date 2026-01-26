@@ -84,9 +84,26 @@ export async function getAnimeById(id: string): Promise<Anime | null> {
   }
 }
 
-export async function searchAnime(query: string): Promise<Anime[]> {
+export const GENRE_MAP: Record<string, number> = {
+  "Action": 1,
+  "Adventure": 2,
+  "Comedy": 4,
+  "Drama": 8,
+  "Fantasy": 10,
+  "Horror": 14,
+  "Romance": 22,
+  "Sci-Fi": 24,
+  "Slice of Life": 36,
+  "Supernatural": 37,
+};
+
+export async function searchAnime(query: string, genreId?: string): Promise<Anime[]> {
     try {
-        const res = await fetch(`${BASE_URL}/anime?q=${query}&limit=12`, {
+        let url = `${BASE_URL}/anime?limit=12`;
+        if (query) url += `&q=${encodeURIComponent(query)}`;
+        if (genreId) url += `&genres=${genreId}`;
+
+        const res = await fetch(url, {
           next: { revalidate: 600 } // Cache search results for 10 mins
         });
         if (!res.ok) return [];
