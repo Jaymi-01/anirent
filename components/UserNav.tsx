@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/AuthContext";
-import { LogIn, LogOut, User as UserIcon, LayoutDashboard } from "lucide-react";
+import { LogIn, LogOut, User as UserIcon, LayoutDashboard, PackageOpen } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function UserNav() {
@@ -56,6 +56,11 @@ export function UserNav() {
             <DropdownMenuSeparator />
           </>
         )}
+        <DropdownMenuItem onClick={() => router.push('/orders')}>
+          <PackageOpen className="mr-2 h-4 w-4" />
+          My Orders
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout}>
           <LogOut className="mr-2 h-4 w-4" />
           Log out
