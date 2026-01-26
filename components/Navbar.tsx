@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CartSheet } from "./CartSheet";
+import { UserNav } from "./UserNav";
 
 export function Navbar() {
   return (
@@ -26,6 +27,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center space-x-4">
+          <UserNav />
           <CartSheet />
         </div>
       </div>
