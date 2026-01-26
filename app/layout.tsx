@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/Navbar";
+import { PageTransition } from "@/components/PageTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,18 +32,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
-        <CartProvider>
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <footer className="bg-card py-8 mt-12 border-t border-border">
-            <div className="container mx-auto px-4 text-center text-muted-foreground">
-              <p>&copy; 2026 AniRent. All rights reserved.</p>
-            </div>
-          </footer>
-          <Toaster />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+                      <Navbar />
+                      <main className="flex-1">
+                        <PageTransition>
+                          {children}
+                        </PageTransition>
+                      </main>
+                      <footer className="bg-card py-8 mt-12 border-t border-border">              <div className="container mx-auto px-4 text-center text-muted-foreground">
+                <p>&copy; 2026 AniRent. All rights reserved.</p>
+              </div>
+            </footer>
+            <Toaster />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );
