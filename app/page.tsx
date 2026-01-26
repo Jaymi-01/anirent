@@ -1,12 +1,11 @@
-import { getTopAnime } from "@/lib/jikan";
-import { AnimeCard } from "@/components/AnimeCard";
+import { FeaturedSection } from "@/components/FeaturedSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { AnimeGridSkeleton } from "@/components/AnimeGridSkeleton";
 
-export default async function Home() {
-  const featuredAnimes = await getTopAnime(4);
-
+export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -64,11 +63,9 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {featuredAnimes.map((anime) => (
-            <AnimeCard key={anime.id} anime={anime} />
-          ))}
-        </div>
+        <Suspense fallback={<AnimeGridSkeleton count={4} />}>
+            <FeaturedSection />
+        </Suspense>
       </section>
 
       {/* Categories Banner */}
