@@ -11,10 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/AuthContext";
-import { LogIn, LogOut, User as UserIcon } from "lucide-react";
+import { LogIn, LogOut, User as UserIcon, LayoutDashboard } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function UserNav() {
   const { user, signInWithGoogle, logout } = useAuth();
+  const router = useRouter();
 
   if (!user) {
     return (
@@ -45,6 +47,15 @@ export function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+          <>
+            <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              Admin Dashboard
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuItem onClick={logout}>
           <LogOut className="mr-2 h-4 w-4" />
           Log out
