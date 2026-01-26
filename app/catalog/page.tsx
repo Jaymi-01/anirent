@@ -6,13 +6,13 @@ import { Search } from "lucide-react";
 import { redirect } from "next/navigation";
 
 interface PageProps {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; genre?: string; name?: string }>;
 }
 
 export default async function CatalogPage({ searchParams }: PageProps) {
-  const { q } = await searchParams;
+  const { q, genre, name } = await searchParams;
   const query = q || "";
-  const animes = await searchAnime(query);
+  const animes = await searchAnime(query, genre);
 
   async function searchAction(formData: FormData) {
     "use server";
@@ -25,10 +25,13 @@ export default async function CatalogPage({ searchParams }: PageProps) {
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-            Anime Catalog
+            {name ? `${name} Anime` : "Anime Catalog"}
           </h1>
           <p className="text-muted-foreground mt-2">
-            Explore our vast collection of anime series and movies.
+            {name 
+              ? `Showing the best ${name} series and movies.` 
+              : "Explore our vast collection of anime series and movies."
+            }
           </p>
         </div>
         
