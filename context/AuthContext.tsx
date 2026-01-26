@@ -18,6 +18,11 @@ interface AuthContextType {
   logout: () => Promise<void>;
 }
 
+interface FirebaseError {
+  code?: string;
+  message?: string;
+}
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -37,9 +42,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
       toast.success("Signed in successfully!");
-    } catch (error: any) {
-      console.error("Firebase sign-in error:", error.code, error.message);
-      toast.error(`Sign-in failed: ${error.code || "Unknown error"}`);
+    } catch (error) {
+      const err = error as FirebaseError;
+      console.error("Firebase sign-in error:", err.code, err.message);
+      toast.error(`Sign-in failed: ${err.code || "Unknown error"}`);
     }
   };
 
@@ -48,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await firebaseSignOut(auth);
       toast.success("Signed out successfully");
     } catch (error) {
-        console.error(error);
+      console.error(error);
       toast.error("Failed to sign out");
     }
   };
