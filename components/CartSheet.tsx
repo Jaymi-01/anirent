@@ -5,15 +5,33 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/context/CartContext";
-import { ShoppingCart, Trash2, X } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export function CartSheet() {
   const { cart, removeFromCart, total } = useCart();
+  const { user } = useAuth();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
   const itemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
+  useEffect(() => {
+    if (open) {
+      router.prefetch("/checkout");
+    }
+  }, [open, router]);
+
+  const handleCheckoutRedirect = () => {
+    setOpen(false);
+    router.push("/checkout");
+  };
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="relative border-primary/50 hover:bg-primary/20 hover:text-primary transition-all duration-300">
           <ShoppingCart className="h-5 w-5" />
@@ -83,8 +101,11 @@ export function CartSheet() {
                   ${total.toFixed(2)}
                 </span>
               </div>
-              <Button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black font-bold border-0 shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all transform hover:scale-[1.02]">
-                Checkout Now
+              <Button 
+                className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black font-bold border-0 shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all transform hover:scale-[1.02]"
+                onClick={handleCheckoutRedirect}
+              >
+                Go to Checkout
               </Button>
             </div>
           </>
