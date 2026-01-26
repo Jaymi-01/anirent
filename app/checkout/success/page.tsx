@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Mail, Home, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { OrderSuccessPopup } from "@/components/OrderSuccessPopup";
 
 export default function SuccessPage() {
   return (
     <div className="container mx-auto px-4 py-20 min-h-[80vh] flex flex-col items-center justify-center text-center">
+      <OrderSuccessPopup />
       <div className="relative mb-8">
         <CheckCircle2 className="h-24 w-24 text-emerald-500 animate-in zoom-in duration-500" />
         <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
