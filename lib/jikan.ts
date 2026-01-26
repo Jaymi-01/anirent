@@ -44,10 +44,11 @@ function mapJikanToAnime(item: any): Anime {
 
 export async function getTopAnime(limit = 10): Promise<Anime[]> {
   try {
-    const res = await fetch(`${BASE_URL}/top/anime?limit=${limit}&filter=bypopularity`);
+    const res = await fetch(`${BASE_URL}/top/anime?limit=${limit}&filter=bypopularity`, {
+      next: { revalidate: 3600 } // Cache for 1 hour
+    });
     if (!res.ok) throw new Error("Failed to fetch top anime");
     const data = await res.json();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return data.data.map((item: any) => mapJikanToAnime(item));
   } catch (error) {
     console.error(error);
@@ -57,10 +58,11 @@ export async function getTopAnime(limit = 10): Promise<Anime[]> {
 
 export async function getTrendingAnime(limit = 10): Promise<Anime[]> {
     try {
-      const res = await fetch(`${BASE_URL}/top/anime?limit=${limit}&filter=airing`);
+      const res = await fetch(`${BASE_URL}/top/anime?limit=${limit}&filter=airing`, {
+        next: { revalidate: 3600 }
+      });
       if (!res.ok) throw new Error("Failed to fetch trending anime");
       const data = await res.json();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return data.data.map((item: any) => mapJikanToAnime(item));
     } catch (error) {
       console.error(error);
@@ -70,7 +72,9 @@ export async function getTrendingAnime(limit = 10): Promise<Anime[]> {
 
 export async function getAnimeById(id: string): Promise<Anime | null> {
   try {
-    const res = await fetch(`${BASE_URL}/anime/${id}`);
+    const res = await fetch(`${BASE_URL}/anime/${id}`, {
+      next: { revalidate: 86400 } // Cache specific anime for 24 hours
+    });
     if (!res.ok) return null;
     const data = await res.json();
     return mapJikanToAnime(data.data);
@@ -82,10 +86,11 @@ export async function getAnimeById(id: string): Promise<Anime | null> {
 
 export async function searchAnime(query: string): Promise<Anime[]> {
     try {
-        const res = await fetch(`${BASE_URL}/anime?q=${query}&limit=12`);
+        const res = await fetch(`${BASE_URL}/anime?q=${query}&limit=12`, {
+          next: { revalidate: 600 } // Cache search results for 10 mins
+        });
         if (!res.ok) return [];
         const data = await res.json();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data.data.map((item: any) => mapJikanToAnime(item));
     } catch (error) {
         console.error(error);
