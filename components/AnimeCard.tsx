@@ -76,9 +76,16 @@ export function AnimeCard({ anime, className }: AnimeCardProps) {
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         <div className="flex flex-col">
           <span className="text-xs text-muted-foreground">Rent for</span>
-          <span className="text-xl font-bold text-accent drop-shadow-[0_0_5px_rgba(251,191,36,0.3)]">
-            ${anime.price}
-          </span>
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold text-accent drop-shadow-[0_0_5px_rgba(251,191,36,0.3)]">
+              ${anime.price.toFixed(2)}
+            </span>
+            {anime.originalPrice && (
+              <span className="text-xs text-muted-foreground line-through decoration-destructive">
+                ${anime.originalPrice.toFixed(2)}
+              </span>
+            )}
+          </div>
         </div>
         <Button 
           onClick={() => addToCart(anime)}
