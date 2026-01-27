@@ -40,7 +40,7 @@ AniRent is a high-performance, full-stack e-commerce application designed for th
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/anirent.git
+   git clone https://github.com/Jaymi-01/anirent.git
    cd anirent
    ```
 
@@ -72,7 +72,3 @@ AniRent is a high-performance, full-stack e-commerce application designed for th
 
 5. **Deploy Firestore Rules:**
    Copy the contents of `firestore.rules` to your Firebase Console or deploy via CLI.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
