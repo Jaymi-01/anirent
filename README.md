@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌌 AniRent - Cyberpunk Anime Rental Platform
 
-## Getting Started
+AniRent is a high-performance, full-stack e-commerce application designed for the modern anime enthusiast. Built with **Next.js 15**, **TypeScript**, and **Firebase**, it offers a seamless experience for renting anime titles in a visually stunning, neon-soaked cyberpunk environment.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🛒 Customer Experience
+- **Dynamic Catalog:** Real-time anime data integrated via the Jikan API (MyAnimeList).
+- **Smart Search:** Filter and find anime by title or genre.
+- **Cyberpunk UI:** Modern, responsive interface using Tailwind CSS and Framer Motion for smooth transitions.
+- **Persistent Cart:** Add multiple rentals and manage them effortlessly before checkout.
+- **Order Tracking:** A dedicated "My Orders" page with a visual progress tracker (`Placed` → `Processing` → `Shipped` → `Delivered`).
+- **Interactive Guides:** One-time onboarding popups to help new users find their way.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔐 Authentication & Security
+- **Google Sign-In:** Secure user authentication powered by Firebase.
+- **Role-Based Access:** Restricted Admin Dashboard protected by environment-level email verification.
+- **Firestore Rules:** Production-ready security rules to protect user data and order history.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🛠 Admin Management
+- **Order Control Center:** View all customer orders and update their fulfillment status in real-time.
+- **Price Management:** Override default API prices and apply "Price Slashes" (discounts) with instant global updates.
+- **Real-time Analytics:** Monitor sales activity as it happens.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✉️ Communications
+- **Email Confirmations:** Automated, beautifully styled order confirmation emails sent via Nodemailer and React Email.
 
-## Learn More
+## 🚀 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** [Next.js 15 (App Router)](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Database & Auth:** [Firebase](https://firebase.google.com/) (Firestore & Auth)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components:** [Shadcn/UI](https://ui.shadcn.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Data Source:** [Jikan API](https://jikan.moe/)
+- **Emails:** [Nodemailer](https://nodemailer.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠 Setup & Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/anirent.git
+   cd anirent
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Variables:**
+   Create a `.env.local` file and add your credentials:
+   ```env
+   # Firebase Public Keys
+   NEXT_PUBLIC_FIREBASE_API_KEY=...
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+   
+   # Admin Configuration
+   NEXT_PUBLIC_ADMIN_EMAIL=your-email@gmail.com
+   
+   # Email Configuration (Nodemailer)
+   EMAIL_USER=...
+   EMAIL_PASS=...
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the development server:**
+   ```bash
+   pnpm dev
+   ```
+
+5. **Deploy Firestore Rules:**
+   Copy the contents of `firestore.rules` to your Firebase Console or deploy via CLI.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
