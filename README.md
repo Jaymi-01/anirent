@@ -1,6 +1,6 @@
 # 🌌 AniRent - Cyberpunk Anime Rental Platform
 
-AniRent is a high-performance, full-stack e-commerce application designed for the modern anime enthusiast. Built with **Next.js 15**, **TypeScript**, and **Firebase**, it offers a seamless experience for renting anime titles in a visually stunning, neon-soaked cyberpunk environment.
+AniRent is a high-performance, full-stack e-commerce application designed for the modern anime enthusiast. Built with **Next.js 15**, **TypeScript**, **Jikan API** and **Firebase**, it offers a seamless experience for renting anime titles in a visually stunning, neon-soaked cyberpunk environment.
 
 ## ✨ Features
 
@@ -50,7 +50,7 @@ AniRent is a high-performance, full-stack e-commerce application designed for th
    ```
 
 3. **Environment Variables:**
-   Create a `.env.local` file and add your credentials:
+   Create a `.env` file and add your credentials:
    ```env
    # Firebase Public Keys
    NEXT_PUBLIC_FIREBASE_API_KEY=...
